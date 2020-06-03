@@ -71,7 +71,6 @@ sensio_framework_extra:
         annotations: false
 # app/config/config.yml
 fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
     user_class: AppBundle\Entity\User
