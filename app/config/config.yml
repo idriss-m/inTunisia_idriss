@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@UserBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -93,3 +94,8 @@ nelmio_cors:
             allow_headers: ['origin', 'content-type', 'authorization']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
             max_age: 3600
+lexik_jwt_authentication:
+    secret_key:       '%kernel.project_dir%/config/jwt/private.pem' # required for token creation
+    public_key:       '%kernel.project_dir%/config/jwt/public.pem'  # required for token verification
+    pass_phrase:      'idrissou53545514' # required for token creation, usage of an environment variable is recommended
+    token_ttl:        3600
