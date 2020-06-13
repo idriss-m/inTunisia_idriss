@@ -75,7 +75,7 @@ sensio_framework_extra:
 fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
-    user_class: AppBundle\Entity\User
+    user_class: UserBundle\Entity\User
     service:                               # this lines
         mailer: fos_user.mailer.twig_swift # this lines
     from_email:
@@ -94,8 +94,9 @@ nelmio_cors:
             allow_headers: ['origin', 'content-type', 'authorization']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
             max_age: 3600
+
 lexik_jwt_authentication:
-    secret_key:       '%kernel.project_dir%/config/jwt/private.pem' # required for token creation
-    public_key:       '%kernel.project_dir%/config/jwt/public.pem'  # required for token verification
+    secret_key:       '%kernel.project_dir%/app/config/jwt/private.pem' # required for token creation
+    public_key:       '%kernel.project_dir%/app/config/jwt/public.pem'  # required for token verification
     pass_phrase:      'idrissou53545514' # required for token creation, usage of an environment variable is recommended
     token_ttl:        3600
