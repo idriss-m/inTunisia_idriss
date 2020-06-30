@@ -24,4 +24,20 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
     }
+
+    /**
+     * @ORM\role
+     * @ORM\Column(type="string")
+     */  
+    private $role;
+
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
 }

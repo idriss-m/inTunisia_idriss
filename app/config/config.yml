@@ -82,7 +82,12 @@ fos_user:
     from_email:
         address: "idriss.mezguich@esprit.tn"
         sender_name: "Idriss M"
-
+    registration:
+        form:
+            type: UserBundleFormRegistrationType
+    profile:
+        form:
+            type: UserBundleFormProfileType
 fos_rest:
     body_listener: true
     param_fetcher_listener: force
