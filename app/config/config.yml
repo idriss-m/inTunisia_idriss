@@ -37,6 +37,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -81,7 +83,12 @@ fos_user:
     from_email:
         address: "idriss.mezguich@esprit.tn"
         sender_name: "Idriss M"
-
+    registration:
+       form:
+           type: UserBundle\Form\RegistrationType
+    profile:
+       form:
+           type: ProfileType
 fos_rest:
     routing_loader:
         default_format: json
