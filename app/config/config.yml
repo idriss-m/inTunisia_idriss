@@ -88,7 +88,7 @@ fos_user:
            type: UserBundle\Form\RegistrationType
     profile:
        form:
-           type: ProfileType
+           type: UserBundle\Form\ProfileType
 fos_rest:
     routing_loader:
         default_format: json

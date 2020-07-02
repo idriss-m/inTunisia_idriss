@@ -24,17 +24,16 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new UserBundle\UserBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle()
         ];
 
-        if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
+        if (in_array($this->getEnvironment(), ['dev', 'test', 'acceptance'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-
-            if ('dev' === $this->getEnvironment()) {
-                $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-                $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
-            }
+            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new Csa\Bundle\GuzzleBundle\CsaGuzzleBundle();
         }
 
         return $bundles;
