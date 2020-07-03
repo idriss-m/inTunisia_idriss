@@ -76,7 +76,7 @@ sensio_framework_extra:
 # app/config/config.yml
 fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
-    firewall_name: main
+    firewall_name: api
     user_class: UserBundle\Entity\User
     service:                               # this lines
         mailer: fos_user.mailer.twig_swift # this lines
@@ -90,18 +90,42 @@ fos_user:
        form:
            type: ProfileType
 fos_rest:
-    routing_loader:
-        default_format: json
+    body_listener: true
+    param_fetcher_listener: force
+    format_listener:
+        enabled: true
+        rules:
+            - { path: ^/, priorities: [ json ], fallback_format: json, prefer_extension: true }
     view:
-        view_response_listener: true
-nelmio_cors:
-    paths:
-        '^/api/':
-            allow_origin: ['http://localhost:4200']
-            allow_headers: ['origin', 'content-type', 'authorization']
-            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
-            max_age: 3600
+        view_response_listener: 'force'
+        formats:
+            json: true
+            xml: false
+            rss: false
+        mime_types:
+            json: ['application/json', 'application/x-json']
+    routing_loader:
+        default_format:  json
+        include_format:  false
+    exception:
+        enabled: true
 
+nelmio_cors:
+    defaults:
+            allow_origin: ['http://localhost:4200']
+            allow_methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS"]
+            allow_headers: ["content-type", "authorization"]
+            max_age: 3600
+    paths:
+        '^/': ~
+
+nelmio_api_doc: ~
+
+jms_serializer: ~
+
+csa_guzzle:
+    profiler: '%kernel.debug%'
+    
 lexik_jwt_authentication:
     secret_key:       '%kernel.project_dir%/app/config/jwt/private.pem' # required for token creation
     public_key:       '%kernel.project_dir%/app/config/jwt/public.pem'  # required for token verification
