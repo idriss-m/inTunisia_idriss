@@ -13,6 +13,9 @@ app:
     resource: "@AppBundle/Controller/"
     type: rest
     prefix: /api
+
+routing_rest:
+    resource: routing_rest.yml
     
 api_login_check:
     path: /api/login_check

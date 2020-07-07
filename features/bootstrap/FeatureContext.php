@@ -16,7 +16,26 @@ class FeatureContext implements Context
      * You can also pass arbitrary arguments to the
      * context constructor through behat.yml.
      */
-    public function __construct()
+
+    private $doctrine;
+    private $manager;
+    private $schemaTool;
+    private $classes;
+
+    public function __construct(\Doctrine\Common\Persistence\ManagerRegistry $doctrine)
     {
+        $this->doctrine = $doctrine;
+        $this->manager = $doctrine->getManager();
+        $this->schemaTool = new \Doctrine\ORM\Tools\SchemaTool($this->manager);
+        $this->classes = $this->manager->getMetadataFactory()->getAllMetadata();
+    }
+
+    /**
+     * @BeforeScenario
+     */
+    public function createSchema()
+    {
+        $this->schemaTool->dropSchema($this->classes);
+        $this->schemaTool->createSchema($this->classes);
     }
 }

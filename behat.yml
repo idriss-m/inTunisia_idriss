@@ -7,9 +7,9 @@ default:
       contexts:
         - FeatureContext:
             doctrine: "@doctrine"
-        - AppBundle\Features\Context\RestApiContext:
+        - UserBundle\Features\Context\RestApiContext:
             client: "@csa_guzzle.client.local_test_api"
-        - AppBundle\Features\Context\UserSetupContext:
+        - UserBundle\Features\Context\UserSetupContext:
             userManager: "@fos_user.user_manager"
             em: "@doctrine.orm.entity_manager"
 
