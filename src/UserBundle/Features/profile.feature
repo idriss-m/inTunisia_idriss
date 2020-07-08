@@ -23,3 +23,27 @@ Feature: Manage User profile data via the RESTful API
         "email": "peter@test.com"
       }
       """
+    
+  Scenario: Cannot view another user's profile
+    When I send a "GET" request to "/profile/2"
+    Then the response code should be 403
+
+  Scenario: Can replace their own profile
+    When I send a "PUT" request to "/profile/1" with body:
+      """
+      {
+        "username": "peter",
+        "email": "new_email@test.com",
+        "current_password": "testpass"
+      }
+      """
+    Then the response code should be 204
+     And I send a "GET" request to "/profile/1"
+     And the response should contain json:
+      """
+      {
+        "id": "1",
+        "username": "peter",
+        "email": "new_email@test.com"
+      }
+      """
