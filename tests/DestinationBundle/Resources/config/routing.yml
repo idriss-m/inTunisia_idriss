@@ -1,0 +1,24 @@
+destination_homepage:
+    path:     /
+    defaults: { _controller: destinationBundle:Default:index }
+destination_add:
+    path:     /add
+    defaults: { _controller: destinationBundle:destination:addDes}
+destination_delete:
+    path:     /delete/{id}
+    defaults: { _controller: destinationBundle:destination:delete }
+destination_show:
+    path:     /show
+    defaults: { _controller: destinationBundle:destination:show }
+getdestinationid:
+    path:     /des/{id}
+    defaults: { _controller: destinationBundle:destination:getdesByid }
+getAlldes:
+    path:     /des
+    defaults: { _controller: destinationBundle:destination:getAlldes }
+updatedes:
+    path:     /update/{id}
+    defaults: { _controller: destinationBundle:destination:update }
+getdestinationowner:
+    path:     /des/{owner}
+    defaults: { _controller: destinationBundle:destination:getdesByowner }
