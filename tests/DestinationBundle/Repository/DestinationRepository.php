@@ -1,6 +1,6 @@
 <?php
 
-namespace destinationBundle\Repository;
+namespace DestinationBundle\Repository;
 
 /**
  * DestinationRepository

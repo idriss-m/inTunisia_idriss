@@ -1,6 +1,6 @@
 <?php
 
-namespace destinationBundle\Controller;
+namespace DestinationBundle\Controller;
 
 
 use destinationBundle\Entity\Destination;
