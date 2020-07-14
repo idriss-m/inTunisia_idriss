@@ -21,10 +21,9 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
-            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
             new UserBundle\UserBundle(),
             
         ];
@@ -33,12 +32,9 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            
-            $bundles[] = new Csa\Bundle\GuzzleBundle\CsaGuzzleBundle();
-        }
-
-        if ('dev' === $this->getEnvironment()) {
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+
+            $bundles[] = new Csa\Bundle\GuzzleBundle\CsaGuzzleBundle();
             $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
         }
 

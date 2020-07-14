@@ -2,25 +2,21 @@
 
 namespace UserBundle\Controller;
 
-use UserBundle\Entity\User;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations;
-use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Form\Factory\FactoryInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormTypeInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -30,8 +26,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class RestProfileController extends FOSRestController implements ClassResourceInterface
 {
     /**
-     * @Get("/profile/{user}")
+     * @Annotations\Get("/profile/{user}")
+     *
+     * @Annotations\View(serializerGroups={
+     *   "users_all"
+     * })
+     *
      * @ParamConverter("user", class="UserBundle:User")
+     *
+     * Note: Could be refactored to make use of the User Resolver in Symfony 3.2 onwards
+     * more at : http://symfony.com/blog/new-in-symfony-3-2-user-value-resolver-for-controllers
      */
     public function getAction(UserInterface $user)
     {
@@ -72,8 +76,10 @@ class RestProfileController extends FOSRestController implements ClassResourceIn
      * @param Request       $request
      * @param bool          $clearMissing
      * @param UserInterface $user
+     *
+     * @return View|null|\Symfony\Component\Form\FormInterface|Response
      */
-    public function updateProfile(Request $request, $clearMissing = true, UserInterface $user)
+    private function updateProfile(Request $request, $clearMissing = true, UserInterface $user)
     {
         $user = $this->getAction($user);
 
@@ -109,22 +115,12 @@ class RestProfileController extends FOSRestController implements ClassResourceIn
 
         // there was no override
         if (null === $response = $event->getResponse()) {
-            return $this->routeRedirectView(
-                'get_profile',
-                ['user' => $user->getId()],
-                Response::HTTP_NO_CONTENT
-            );
+            return $this->routeRedirectView('get_profile', ['user' => $user->getId()], Response::HTTP_NO_CONTENT);
         }
 
         // unsure if this is now needed / will work the same
         $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
-        return $this->routeRedirectView(
-            'get_profile',
-            ['user' => $user->getId()],
-            Response::HTTP_NO_CONTENT
-        );
+        return $this->routeRedirectView('get_profile', ['user' => $user->getId()], Response::HTTP_NO_CONTENT);
     }
-
-
 }

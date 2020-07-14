@@ -37,7 +37,18 @@ services:
         class: UserBundle\Form\RegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
-     
+    
+    event.jwt_created_listener:
+        class: UserBundle\Event\Listener\JWTCreatedListener
+        arguments:
+            - "@security.token_storage"
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
+
+    # user.mailer.rest:
+    #     class: UserBundle\Mailer\RestMailer
+    #     public: false
+    #     parent: fos_user.mailer.twig_swift 
     # app_user_registration:
     #     class: UserBundle\Form\ProfileType
     #     tags:

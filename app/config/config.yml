@@ -127,7 +127,7 @@ nelmio_api_doc: ~
 jms_serializer: ~
     
 lexik_jwt_authentication:
-    secret_key:       '%kernel.project_dir%/app/config/jwt/private.pem' # required for token creation
-    public_key:       '%kernel.project_dir%/app/config/jwt/public.pem'  # required for token verification
-    pass_phrase:      'idrissou53545514' # required for token creation, usage of an environment variable is recommended
-    token_ttl:        3600
+    private_key_path:       '%kernel.project_dir%/app/config/jwt/private.pem' # required for token creation
+    public_key_path:        '%kernel.project_dir%/app/config/jwt/public.pem'  # required for token verification
+    pass_phrase:            'idrissou53545514' # required for token creation, usage of an environment variable is recommended
+    token_ttl:              3600

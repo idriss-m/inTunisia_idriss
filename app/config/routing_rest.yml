@@ -2,6 +2,17 @@ login:
     type: rest
     resource: UserBundle\Controller\RestLoginController
 
+
+password_management:
+    type: rest
+    resource: UserBundle\Controller\RestPasswordManagementController
+
+
 profile:
     type: rest
     resource: UserBundle\Controller\RestProfileController
+
+
+registration:
+    type: rest
+    resource: UserBundle\Controller\RestRegistrationController
